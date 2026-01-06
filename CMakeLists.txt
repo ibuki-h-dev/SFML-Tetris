@@ -1,27 +1,26 @@
 cmake_minimum_required(VERSION 3.10)
 project(TetrisWasm)
-
 if(EMSCRIPTEN)
-    include(FetchContent)
-    # GitHub Actionsでのダウンロードエラーを回避するため、ソースディレクトリが指定されていればそれを使う
-    if(SFML_SOURCE_DIR)
-        set(FETCHCONTENT_SOURCE_DIR_SFML ${SFML_SOURCE_DIR})
+    # Actionsでダウンロード済みのソースがある場合、それを使う
+    if(EXISTS "${SFML_SOURCE_DIR}/CMakeLists.txt")
+        add_subdirectory("${SFML_SOURCE_DIR}" sfml)
+    else()
+        # ローカル等でソースがない場合のフォールバック（本家URL）
+        include(FetchContent)
+        FetchContent_Declare(
+            SFML
+            GIT_REPOSITORY https://github.com/SFML/SFML.git
+            GIT_TAG 3.0.0
+        )
+        FetchContent_MakeAvailable(SFML)
     endif()
-
-    FetchContent_Declare(
-        SFML
-        GIT_REPOSITORY "https://github.com/SFML/SFML.git"
-        GIT_TAG 3.0.0
-    )
     
+    # Emscripten用のビルド設定
     set(SFML_OS_EMSCRIPTEN TRUE CACHE BOOL "" FORCE)
     set(SFML_BUILD_AUDIO FALSE CACHE BOOL "" FORCE)
     set(SFML_BUILD_NETWORK FALSE CACHE BOOL "" FORCE)
-    set(SFML_BUILD_EXAMPLES FALSE CACHE BOOL "" FORCE)
-
-    FetchContent_MakeAvailable(SFML)
 else()
-    # PC用（vcpkgでインストールされたSFML 3.xを使用）
+    # PC用
     find_package(SFML 3.0 COMPONENTS Graphics Window System REQUIRED)
 endif()
 

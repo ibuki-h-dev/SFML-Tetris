@@ -23,15 +23,16 @@ jobs:
         uses: mymindstorm/setup-emsdk@v14
         with:
           version: '3.1.50'
-
       - name: Build Project
         run: |
           mkdir build
           cd build
-          # SFMLのビルドオプションを適切に設定
+          # -Dオプションを増やして Emscripten であることを確実に伝えます
           emcmake cmake .. -DCMAKE_BUILD_TYPE=Release \
             -DSFML_SOURCE_DIR=${{ github.workspace }}/sfml-src \
-            -DSFML_OS_EMSCRIPTEN=TRUE
+            -DSFML_OS_EMSCRIPTEN=1 \
+            -DSTRATEGY=EMSCRIPTEN \
+            -DCMAKE_CXX_FLAGS="-s USE_PTHREADS=0"
           emmake make -j2
 
       - name: Deploy to GitHub Pages
