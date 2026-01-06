@@ -1,20 +1,10 @@
 cmake_minimum_required(VERSION 3.16)
+project(Tetris VERSION 1.0 LANGUAGES CXX)
 
-project(Tetris
-    VERSION 1.0
-    LANGUAGES CXX
-)
-
-# =========================
-# C++ 設定
-# =========================
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_EXTENSIONS OFF)
 
-# =========================
-# ソース
-# =========================
+# ソースファイル
 set(SOURCES
     src/main.cpp
     src/Game.cpp
@@ -24,14 +14,9 @@ set(SOURCES
 
 add_executable(Tetris ${SOURCES})
 
-# =========================
-# SFML
-# =========================
-find_package(SFML 3.0 REQUIRED COMPONENTS
-    Graphics
-    Window
-    System
-)
+# SFML 3.0を探す
+# vcpkg経由の場合、CONFIGモードで探すのが一般的です
+find_package(SFML 3 REQUIRED COMPONENTS Graphics Window System CONFIG)
 
 target_link_libraries(Tetris PRIVATE
     SFML::Graphics
@@ -39,19 +24,14 @@ target_link_libraries(Tetris PRIVATE
     SFML::System
 )
 
-# =========================
-# アセットコピー（実行時に必要）
-# =========================
+# アセットコピー
 add_custom_command(
     TARGET Tetris POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
-        ${CMAKE_SOURCE_DIR}/assets
-        $<TARGET_FILE_DIR:Tetris>/assets
+        "${CMAKE_SOURCE_DIR}/assets"
+        "$<TARGET_FILE_DIR:Tetris>/assets"
 )
 
-# =========================
-# コンパイル警告（評価上がる）
-# =========================
 if (MSVC)
     target_compile_options(Tetris PRIVATE /W4)
 else()
