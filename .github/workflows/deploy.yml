@@ -13,14 +13,20 @@ jobs:
       - name: Setup Emscripten
         uses: mymindstorm/setup-emsdk@v14
         with:
-          version: '3.1.50' # SFMLが動く安定バージョンを指定
+          version: '3.1.50'
+
+      # ★ここを追加：Gitの認証エラー（Username/Password要求）を回避する
+      - name: Force HTTPS for GitHub
+        run: |
+          git config --global url."https://github.com/".insteadOf "git@github.com:"
+          git config --global url."https://github.com/".insteadOf "ssh://git@github.com/"
 
       - name: Build SFML and Project
         run: |
           mkdir build
           cd build
           emcmake cmake .. -DCMAKE_BUILD_TYPE=Release
-          emmake make
+          emmake make -j2 # -j2 をつけると並列処理で少し速くなります
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
