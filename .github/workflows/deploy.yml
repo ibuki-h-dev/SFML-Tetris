@@ -18,8 +18,7 @@ jobs:
       # ★変更点：CMakeの前に手動でSFMLをダウンロードする
       - name: Pre-download SFML
         run: |
-          git clone --depth 1 https://github.com/Blaatand213/sfml-wasm.git sfml-src
-
+          git clone --depth 1 https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/Blaatand213/sfml-wasm.git sfml-src
       - name: Build Project
         run: |
           mkdir build
