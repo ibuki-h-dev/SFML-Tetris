@@ -5,19 +5,23 @@ if(EMSCRIPTEN)
     include(FetchContent)
     FetchContent_Declare(
         SFML
-        GIT_REPOSITORY https://github.com/SFML/SFML.git
-        GIT_TAG 2.6.x
+        GIT_REPOSITORY https://github.com/Blaatand213/sfml-wasm.git
+        GIT_TAG master
     )
     
-    # SFMLが内部でOS判定を行う前に、Emscriptenであることを強制的に認識させる
+    # Emscriptenビルドに必要な設定を強制
     set(SFML_OS_EMSCRIPTEN TRUE CACHE BOOL "" FORCE)
-    set(CMAKE_SYSTEM_NAME Emscripten CACHE STRING "" FORCE)
+    set(SFML_BUILD_AUDIO FALSE CACHE BOOL "" FORCE)
+    set(SFML_BUILD_NETWORK FALSE CACHE BOOL "" FORCE)
+    set(SFML_BUILD_EXAMPLES FALSE CACHE BOOL "" FORCE)
 
     FetchContent_MakeAvailable(SFML)
 else()
+    # PC用
     find_package(SFML 3.0.2 COMPONENTS Graphics Window System REQUIRED)
 endif()
 
+# あなたのソースファイル構成に合わせてください
 add_executable(index 
     src/main.cpp 
     src/Board.cpp 
@@ -26,7 +30,6 @@ add_executable(index
 )
 
 if(EMSCRIPTEN)
-    # SFMLの内部ターゲット名を直接指定
     target_link_libraries(index PRIVATE sfml-graphics sfml-window sfml-system)
     
     set_target_properties(index PROPERTIES SUFFIX ".html")
