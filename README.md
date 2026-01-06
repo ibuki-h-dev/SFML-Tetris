@@ -74,4 +74,4 @@ I plan to implement these as my schedule allows.
 For educational purposes, the following font asset was used in this project:
 
 
-Font: 00FF Font by hicchicc.
+https://hicchicc.github.io/00ff/
