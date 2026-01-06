@@ -20,8 +20,9 @@ jobs:
           key: vcpkg-${{ runner.os }}-sfml3
 
       # 2. SFML 3.0 をインストール (GitHubのサーバーには入っていないため必須)
+    # 2. SFML 3.0 をインストール (マニフェストモード対応)
       - name: Install SFML via vcpkg
-        run: vcpkg install sfml:x64-windows
+        run: vcpkg install --triplet x64-windows
 
       # 3. CMake構成
       # Actionsのサーバーは VS2022 なので、明示的に Generator を指定します
