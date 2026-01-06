@@ -7,4 +7,12 @@
       *SFML 3.0を用いてオブジェクト指向設計で開発。<br>
       *vcpkgを使用、依存関係をコードベースで管理。<br>
       *配布環境に合わせたArtifact作成。等<br>
-4,スクリーンショット : <br><img width="1598" height="798" alt="スクリーンショット 2026-01-06 152759" src="https://github.com/user-attachments/assets/6d9fb455-ffa7-4aeb-af0f-fa02b769a693" />
+4, 反省＜br＞
+*データ構造は工夫したが、短期間、個人で開発したものなのでコードの可読性は悪い。<br>
+*emsciptenを用いてwebに無理やりつなげようとしたが無理だった。<br>
+4, 今後の展望<br>
+     *エフェクトやフォントは整えたがscore実装などはまだなので余裕ができたら実装する。<br>
+5,スクリーンショット : <br><img width="1598" height="798" alt="スクリーンショット 2026-01-06 152759" src="https://github.com/user-attachments/assets/6d9fb455-ffa7-4aeb-af0f-fa02b769a693" />
+6, 使用させていただいたデータ<br>
+個人学習目的で以下のフォントを使用させていただきました。<br>
+https://hicchicc.github.io/00ff/<br>
