@@ -15,17 +15,17 @@ jobs:
         with:
           version: '3.1.50'
 
-      # ★これを追加：Gitの認証エラーを力技で回避する設定
-      - name: Git Auth Fix
+      # ★変更点：CMakeの前に手動でSFMLをダウンロードする
+      - name: Pre-download SFML
         run: |
-          git config --global url."https://github.com/".insteadOf "git@github.com:"
-          git config --global url."https://github.com/".insteadOf "ssh://git@github.com/"
+          git clone --depth 1 https://github.com/Blaatand213/sfml-wasm.git sfml-src
 
-      - name: Build SFML and Project
+      - name: Build Project
         run: |
           mkdir build
           cd build
-          emcmake cmake .. -DCMAKE_BUILD_TYPE=Release
+          # SFML_SOURCE_DIR を指定して、ダウンロード済みの場所を教える
+          emcmake cmake .. -DCMAKE_BUILD_TYPE=Release -DSFML_SOURCE_DIR=${{ github.workspace }}/sfml-src
           emmake make -j2
 
       - name: Deploy to GitHub Pages
