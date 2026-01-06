@@ -5,11 +5,12 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # ソースファイル
+# CMakeLists.txt の SOURCES セクションを修正
 set(SOURCES
-    src/main.cpp
-    src/Game.cpp
-    src/Board.cpp
-    src/Piece.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Game.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Board.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Piece.cpp
 )
 
 add_executable(Tetris ${SOURCES})
