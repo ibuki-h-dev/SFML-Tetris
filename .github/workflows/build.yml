@@ -12,22 +12,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # 1. vcpkgのキャッシュ設定（2回目以降のビルドが高速になります）
       - name: Cache vcpkg
         uses: actions/cache@v4
         with:
           path: $VCPKG_INSTALLATION_ROOT/installed
           key: vcpkg-${{ runner.os }}-sfml3
 
-      # 2. SFML 3.0 をインストール (GitHubのサーバーには入っていないため必須)
-    # 2. SFML 3.0 をインストール (マニフェストモード対応)
+     
       - name: Install SFML via vcpkg
         run: vcpkg install --triplet x64-windows
 
-      # 3. CMake構成
-      # Actionsのサーバーは VS2022 なので、明示的に Generator を指定します
-      # 3. CMake構成
-      # 3. CMake構成
       - name: Configure
         shell: bash  # Windowsでもbashを使うことでパスの扱いを安定させます
         run: |
@@ -40,8 +34,7 @@ jobs:
       - name: Build
         run: cmake --build build --config Release
 
-      # 5. 成果物のアップロード (exeとassets)
-      # 5. 成果物のアップロード (DLLとexeとassetsを全部まとめる)
+      
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:

@@ -2,8 +2,8 @@
 
 Board::Board():grid(HEIGHT, std::vector<int>(WIDTH, 0)){
     if(font.openFromFile(Config::font)){
-        nextLabel = std::make_unique<sf::Text>(font, "NEXT", 24);
-        holdLabel = std::make_unique<sf::Text>(font, "HOLD", 24);
+        nextLabel = std::make_unique<sf::Text>(font, "NEXT", 30);
+        holdLabel = std::make_unique<sf::Text>(font, "HOLD", 30);
     };
     bWidth = WIDTH*CELL_SIZE;
     bHeight = (HEIGHT-blank)*CELL_SIZE;

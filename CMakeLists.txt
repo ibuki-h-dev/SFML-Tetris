@@ -38,3 +38,11 @@ if (MSVC)
 else()
     target_compile_options(Tetris PRIVATE -Wall -Wextra -Wpedantic)
 endif()
+
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+    # ローカル開発用：絶対パスを渡すことで、どこから実行してもフォントが見つかる
+    target_compile_definitions(Tetris PRIVATE ASSET_DIR="${CMAKE_CURRENT_SOURCE_DIR}/assets/")
+else()
+    # 配布用：実行ファイルからの相対パスを渡す
+    target_compile_definitions(Tetris PRIVATE ASSET_DIR="assets/")
+endif()

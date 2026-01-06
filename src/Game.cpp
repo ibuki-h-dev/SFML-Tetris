@@ -169,12 +169,12 @@ void Game::render(){
 void Game::reset(){
     for(auto& line : board.grid){
         std::fill(line.begin(), line.end(), 0);
-        next.clear();
-        refillBag();
-        state = State::Playing;
-        spawnPiece(); // 最初の一個を生成
-        canHold = true;
     }
+    next.clear();
+    refillBag();
+    state = State::Playing;
+    spawnPiece(); // 最初の一個を生成
+    canHold = true;
 }
 
 void Game::handleInput(float dt){

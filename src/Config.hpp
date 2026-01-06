@@ -2,6 +2,10 @@
 #include<string>
 #include <SFML/Graphics.hpp>
 
+#ifndef ASSET_DIR
+#define ASSET_DIR "assets/"
+#endif
+
 namespace Config{
     inline constexpr unsigned int ScreenWidth = 1600u;
     inline constexpr unsigned int ScreenHeight = 800u;
@@ -38,7 +42,7 @@ namespace Config{
 
     const sf::Color BG_COLOR = sf::Color(255, 255, 245);
 
-    const std::string font = "assets/X14Y24PXHEADUPDAISY.TTF";
+    const std::string font = std::string(ASSET_DIR)+"X14Y24PXHEADUPDAISY.TTF";
     const sf::Color fontColor = sf::Color::Black;
 
 }
